@@ -17,10 +17,10 @@ const Navbar = () => {
       </div>
       <div className="flex justify-end mt-3 gap-5">
         <Button type="primary" className="px-6 text-lg">
-          <Link href="/user/login">Login</Link>
+          <Link href="/api/login">Login</Link>
         </Button>
         <Button type="primary" className="px-6 text-lg">
-          <Link href="/user/register">Register</Link>
+          <Link href="/api/register">Register</Link>
         </Button>
       </div>
     </div>

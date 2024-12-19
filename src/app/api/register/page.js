@@ -1,33 +1,52 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import logo from "../../../assets/logo.png";
+
+import { useState } from "react";
 import Image from "next/image";
+import logo from "../../../assets/logo.png";
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     industry: "",
-    company: "", // For company website URL
+    company: "",
+    role: "user", //* Default role is "user"
   });
   const [message, setMessage] = useState("");
+
+  // * Password Regex
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  // * Creating user
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    setMessage(data.message || data.error);
+
+    // Check password strength
+    if (!passwordRegex.test(formData.password)) {
+      setMessage(
+        "Password must be at least 8 characters long, include uppercase, lowercase, number, and a special character."
+      );
+      return;
+    }
+
+    // !  storing users in localStorage. Later on change it by storing in database.
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const isExistingUser = users.some((user) => user.email === formData.email);
+
+    if (isExistingUser) {
+      setMessage("Email already registered!");
+    } else {
+      users.push(formData);
+      localStorage.setItem("users", JSON.stringify(users));
+      setMessage("User registered successfully!");
+    }
   };
 
   return (
@@ -45,9 +64,10 @@ const Register = () => {
       >
         <h2 className="text-lg font-medium mb-4 text-center">Register</h2>
 
+        {/* User Fields */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="name">
-            Company Name
+            Name
           </label>
           <input
             type="text"
@@ -56,13 +76,12 @@ const Register = () => {
             placeholder="Name"
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-200"
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </div>
-
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="email">
-            Business Email
+            Email
           </label>
           <input
             type="email"
@@ -71,10 +90,9 @@ const Register = () => {
             placeholder="Email"
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-200"
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </div>
-
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="password">
             Password
@@ -86,38 +104,30 @@ const Register = () => {
             placeholder="Password"
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full px-4 py-2 border rounded-lg"
           />
+          <p className="text-sm text-gray-500 mt-1">
+            Must be at least 8 characters, include uppercase, lowercase, number,
+            and special character.
+          </p>
         </div>
 
+        {/* Role Selection */}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="industry">
-            Industry
+          <label className="block text-sm  font-medium mb-2" htmlFor="role">
+            Role
           </label>
-          <input
-            type="text"
-            id="industry"
-            name="industry"
-            placeholder="Industry"
+          <select
+            id="role"
+            name="role"
             onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-green-300"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="company">
-            Company Website URL
-          </label>
-          <input
-            type="url"
-            id="company"
-            name="company"
-            placeholder="Company Website URL"
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-yellow-300"
-          />
+            value={formData.role}
+            className="w-full px-4 py-2 border  rounded-lg"
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Participant</option>
+          </select>
         </div>
 
         <button
@@ -126,12 +136,6 @@ const Register = () => {
         >
           Submit
         </button>
-        <p>
-          You already have an account?{" "}
-          <Link className="text-blue-600 text-lg" href="/user/login">
-            Login
-          </Link>{" "}
-        </p>
 
         {message && (
           <p className="mt-4 text-center text-sm text-red-500">{message}</p>

@@ -5,6 +5,7 @@ import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import UserMenu from "@/components/shared/UserMenu";
+import UserDashboard from "@/components/shared/UserDashboard";
 // const { Header, Content, Footer, Sider } = Layout;
 
 const userDashboard = () => {
@@ -37,7 +38,9 @@ const userDashboard = () => {
               minHeight: 360,
               backgroundColor: "#FDF9F9",
             }}
-          ></div>
+          >
+            <UserDashboard />
+          </div>
         </Content>
       </Layout>
     </Layout>
