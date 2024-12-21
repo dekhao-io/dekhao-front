@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
+import Link from "next/link";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -40,20 +41,27 @@ const Login = () => {
   return (
     <div className="grid grid-cols-2">
       <div className="bg-blue-100 min-h-screen">
-        <Image
-          className="m-auto"
-          src={logo}
-          width={56}
-          height={122}
-          alt="Logo of the company"
-        />
+        <Link href="/">
+          {" "}
+          <Image
+            className="m-auto"
+            src={logo}
+            width={56}
+            height={122}
+            alt="Logo of the company"
+          />{" "}
+        </Link>
+
         <form
           onSubmit={handleSubmit}
           className="p-6 rounded shadow-md w-full max-w-md mx-auto bg-white"
         >
           <h2 className="text-lg font-medium mb-4 text-center">Login</h2>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="email">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -68,7 +76,7 @@ const Login = () => {
           </div>
           <div className="mb-4">
             <label
-              className="block text-sm font-medium mb-2"
+              className="block text-sm text-gray-700 font-medium mb-2"
               htmlFor="password"
             >
               Password
@@ -95,7 +103,7 @@ const Login = () => {
         </form>
       </div>
       <div className="bg-blue-500 ">
-        <p className="bg-gray-200 w-10 h-10 text-center mt-24 text-5xl p-2 mx-12 rounded-full">
+        <p className="bg-gray-200 text-gray-700 w-10 h-10 text-center mt-24 text-5xl p-2 mx-12 rounded-full">
           "
         </p>
         <p className="text-white text-4xl font-bold text-center mt-12">

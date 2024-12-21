@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
+import Link from "next/link";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -49,13 +50,16 @@ const Register = () => {
 
   return (
     <div className="container mx-auto">
-      <Image
-        className=""
-        src={logo}
-        width={56}
-        height={122}
-        alt="Logo of the company"
-      />
+      <Link href="/">
+        {" "}
+        <Image
+          className="m-auto"
+          src={logo}
+          width={56}
+          height={122}
+          alt="Logo of the company"
+        />{" "}
+      </Link>
       <form
         onSubmit={handleSubmit}
         className="p-6 rounded shadow-md w-full max-w-md mx-auto bg-white"
