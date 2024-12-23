@@ -1,15 +1,16 @@
 "use client";
+
+import StatusTable from "@/components/shared/StatusTable";
 import { Button } from "antd";
 import Link from "next/link";
-import React from "react";
 
 const UserDashboard = () => {
   return (
-    <div>
-      <h3 className="text-4xl font-semibold">
-        Our system 3X accurate now for you, Selfie!
-      </h3>
-      <div className="flex gap-4">
+    <div className="container mx-auto p-4">
+      <h4 className=" text-start text-black text-4xl font-semibold">
+        Our system 3X accurate now for you, Selefe!
+      </h4>
+      <div className="flex gap-4   mt-8">
         <div className="mt-8">
           <Button type="primary" className="px-8 py-5 rounded-full text-lg">
             <Link href="ad">Start Advertising</Link>
@@ -17,11 +18,13 @@ const UserDashboard = () => {
         </div>
         <div className="mt-8">
           <Button type="primary" className="px-8 py-5 rounded-full text-lg">
-            <Link href="ad">Talk to a guid</Link>
+            <Link href="ad">Setup a marketing campaign</Link>
           </Button>
         </div>
       </div>
-      <p className="text-3xl">Your Campaign</p>
+      <div className="mt-12">
+        <StatusTable />
+      </div>
     </div>
   );
 };
