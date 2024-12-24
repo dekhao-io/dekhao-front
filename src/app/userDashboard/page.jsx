@@ -1,8 +1,8 @@
 "use client";
 
-import StatusTable from "@/components/shared/StatusTable";
 import { Button } from "antd";
 import Link from "next/link";
+import StatusTable from "../components/shared/StatusTable";
 
 const UserDashboard = () => {
   return (
@@ -22,7 +22,10 @@ const UserDashboard = () => {
           </Button>
         </div>
       </div>
-      <div className="mt-12">
+      <h4 className=" text-center text-black text-4xl font-semibold my-12">
+        Your Marketing Campaigns
+      </h4>
+      <div className="">
         <StatusTable />
       </div>
     </div>

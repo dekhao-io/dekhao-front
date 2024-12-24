@@ -1,11 +1,11 @@
 "use client";
 
-import Navbar from "@/components/shared/Navbar";
 import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import brain from "../assets/brain.png";
 import React from "react";
+import Navbar from "./components/shared/Navbar";
 
 const Home = () => {
   return (
